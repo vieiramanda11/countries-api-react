@@ -1,14 +1,27 @@
-import React from 'react';
-import './App.css';
-import Countries from '../components/countries/Countries';
+import React, { Component } from "react";
+import "./App.css";
+import Countries from "../components/countries/Countries";
+import axios from "axios";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>TEST</h1>
-      <Countries />
-    </div>
-  );
+class App extends Component {
+  state = {
+    countries: [],
+    loading: false,
+  };
+
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const response = await axios.get("https://restcountries.eu/rest/v2/all");
+    this.setState({ countries: response.data, loading: false });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Countries loading={this.state.loading} countries={this.state.countries}/>
+      </div>
+    );
+  }
 }
 
 export default App;
