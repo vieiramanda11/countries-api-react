@@ -6,7 +6,7 @@ class Countries extends Component {
     return (
       <div>
         {this.props.countries.map((country) => (
-          <CountryItem key={country.alpha2Code} country={country} />
+          <CountryItem key={country.alpha3Code} country={country} />
         ))}
       </div>
     );
