@@ -8,6 +8,7 @@ class Search extends Component {
 
   static propTypes = {
     searchCountries: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
   };
 
   onChange = (event) => {
@@ -16,8 +17,12 @@ class Search extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.searchCountries(this.state.text);
-    this.setState({ text: "" });
+    if (this.state.text === "") {
+        this.props.setAlert('Please enter the country name', 'light');
+    } else {
+      this.props.searchCountries(this.state.text);
+      this.setState({ text: "" });
+    }
   };
 
   render() {

@@ -3,11 +3,13 @@ import "./App.css";
 import Countries from "../components/countries/Countries";
 import axios from "axios";
 import Search from "./countries/Search";
+import Alert from './layout/Alert';
 
 class App extends Component {
   state = {
     countries: [],
     loading: false,
+    alert: null,
   };
 
   async componentDidMount() {
@@ -24,10 +26,19 @@ class App extends Component {
     this.setState({ countries: response.data, loading: false });
   };
 
+  setAlert = (message, type) => {
+    this.setState({ alert: { message: message, type: type } })
+
+    setTimeout(() => {
+      this.setState({ alert: null })
+    }, 3000)
+  }
+
   render() {
     return (
       <div className="App">
-        <Search searchCountries={this.searchCountries} />
+        <Alert alert={this.state.alert}/>
+        <Search searchCountries={this.searchCountries} setAlert={this.setAlert}/>
         <Countries
           loading={this.state.loading}
           countries={this.state.countries}
