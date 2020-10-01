@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Countries from "../components/countries/Countries";
 import axios from "axios";
+import Search from "./countries/Search";
 
 class App extends Component {
   state = {
@@ -18,6 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Search />
         <Countries loading={this.state.loading} countries={this.state.countries}/>
       </div>
     );
