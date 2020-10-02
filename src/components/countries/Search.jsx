@@ -1,46 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-class Search extends Component {
-  state = {
-    text: "",
+const Search = ({ searchCountries, setAlert }) => {
+  const [text, setText] = useState('');
+   
+  const onChange = (event) => {
+    setText(event.target.value);
   };
 
-  static propTypes = {
-    searchCountries: PropTypes.func.isRequired,
-    setAlert: PropTypes.func.isRequired,
-  };
-
-  onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  onSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    if (this.state.text === "") {
-        this.props.setAlert('Please enter the country name', 'light');
+    if (text === "") {
+        setAlert('Please enter the country name', 'light');
     } else {
-      this.props.searchCountries(this.state.text);
-      this.setState({ text: "" });
+      searchCountries(text);
+      setText('')
     }
   };
 
-  render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={onSubmit}>
           <input
             type="text"
             name="text"
             placeholder="Search countries"
-            value={this.state.text}
-            onChange={this.onChange}
+            value={text}
+            onChange={onChange}
           ></input>
           <input type="submit" value="Search"></input>
         </form>
       </div>
     );
   }
-}
+
+Search.propTypes = {
+  searchCountries: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+};
 
 export default Search;

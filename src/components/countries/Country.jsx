@@ -21,8 +21,8 @@ class Country extends Component {
         <h5>Capital: {capital}</h5>
         <h5>SubRegion: {subregion}</h5>
         <h5>Topleveldomain: {topLevelDomain}</h5>
-        {/* <h5>Currencies: {currencies}</h5> */}
-        {/* <h5>Languages: {languages}</h5>
+        {/* <h5>Currencies: {currencies}</h5>
+        <h5>Languages: {languages}</h5>
         <h5>Border Countries: {borders}</h5> */}
       </div>
     );
