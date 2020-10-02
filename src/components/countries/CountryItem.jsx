@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 
 const CountryItem = ({
-  country: { alpha3Code, name, population, region, capital },
+  country: { name, population, region, capital, flag },
 }) => {
-  const countryCode = alpha3Code.toLowerCase();
   return (
+    <Link to={`/${name}`}>
     <div>
       <img
-        src={`https://restcountries.eu/data/${countryCode}.svg`}
+        src={flag}
         style={{ width: "100px", height: "50px" }}
         alt="country flag"
       />
@@ -17,6 +18,7 @@ const CountryItem = ({
       <h5>Region: {region}</h5>
       <h5>Capital: {capital}</h5>
     </div>
+    </Link>
   );
 };
 
