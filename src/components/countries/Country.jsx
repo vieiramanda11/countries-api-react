@@ -1,12 +1,21 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 
-class Country extends Component {
-  componentDidMount() {
-    this.props.getCountry(this.props.match.params.country);
-  }
-  render() {
-    const { name, nativeName, flag, population, region, capital, subregion, topLevelDomain, currencies, languages, borders } = this.props.country;
-    
+const Country  = ({ country, getCountry, getCountryCurrencies, getCountryLanguages, getCountryBorders, match, countryCurrencies, countryLanguages, countryBorders }) => {
+
+  useEffect(() => {
+    getCountry(match.params.country);
+    getCountryCurrencies(match.params.country)
+    getCountryLanguages(match.params.country)
+    getCountryBorders(match.params.country)
+    // eslint-disable-next-line
+  },[]);
+
+    const { name, nativeName, flag, population, region, capital, subregion, topLevelDomain } = country;
+    const currency = countryCurrencies.name;
+    const languages = countryLanguages.name;
+
     return (
       <div>
         <img
@@ -21,12 +30,19 @@ class Country extends Component {
         <h5>Capital: {capital}</h5>
         <h5>SubRegion: {subregion}</h5>
         <h5>Topleveldomain: {topLevelDomain}</h5>
-        {/* <h5>Currencies: {currencies}</h5>
-        <h5>Languages: {languages}</h5>
-        <h5>Border Countries: {borders}</h5> */}
+        <h5>Currencies: {currency}</h5>
+        <h5>Language: {languages}</h5>
+        <div>
+        {countryBorders.map((border) => (
+          <Link to={`/${name}`} key={border} countryBorders={countryBorders}><h5>{border}</h5></Link>
+        ))}
+      </div>
       </div>
     );
   }
-}
+
+Country.propTypes = {
+  getCountry: PropTypes.func.isRequired,
+};
 
 export default Country;

@@ -11,6 +11,9 @@ class App extends Component {
   state = {
     countries: [],
     country: [],
+    countryCurrencies: {},
+    countryLanguages: {},
+    countryBorders: [],
     loading: false,
     alert: null,
   };
@@ -35,8 +38,31 @@ class App extends Component {
       `https://restcountries.eu/rest/v2/name/${country}`
     );
     this.setState({ country: response.data[0], loading: false });
-    console.log(response.data);
-    console.log(this.state.country)
+  };
+
+  getCountryCurrencies = async (country) => {
+    this.setState({ loading: true });
+    const response = await axios.get(
+      `https://restcountries.eu/rest/v2/name/${country}`
+    );
+    this.setState({ countryCurrencies: response.data[0].currencies[0], loading: false });
+  };
+
+  getCountryLanguages = async (country) => {
+    this.setState({ loading: true });
+    const response = await axios.get(
+      `https://restcountries.eu/rest/v2/name/${country}`
+    );
+    this.setState({ countryLanguages: response.data[0].languages[0], loading: false });
+  };
+
+  getCountryBorders = async (country) => {
+    this.setState({ loading: true });
+    const response = await axios.get(
+      `https://restcountries.eu/rest/v2/name/${country}`
+    );
+    this.setState({ countryBorders: response.data[0].borders, loading: false });
+    console.log(response.data[0].borders);
   };
 
   setAlert = (message, type) => {
@@ -76,7 +102,13 @@ class App extends Component {
                 <Country
                   {...props}
                   getCountry={this.getCountry}
+                  getCountryCurrencies={this.getCountryCurrencies}
+                  getCountryLanguages={this.getCountryLanguages}
+                  getCountryBorders={this.getCountryBorders}
                   country={this.state.country}
+                  countryCurrencies={this.state.countryCurrencies}
+                  countryLanguages={this.state.countryLanguages}
+                  countryBorders={this.state.countryBorders}
                 />
               )}
             ></Route>
