@@ -1,122 +1,127 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Countries from "../components/countries/Countries";
 import axios from "axios";
 import Search from "./countries/Search";
 import Alert from "./layout/Alert";
-import Country from "./countries/Country"; 
+import Country from "./countries/Country";
 
-class App extends Component {
-  state = {
-    countries: [],
-    country: [],
-    countryCurrencies: {},
-    countryLanguages: {},
-    countryBorders: [],
-    loading: false,
-    alert: null,
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState([]);
+  const [countryCurrencies, setCountryCurrencies] = useState({});
+  const [countryLanguages, setCountryLanguages] = useState({});
+  const [countryBorders, setCountryBorders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(false);
+
+  const allCountries = async () => {
+    const response = await axios.get("https://restcountries.eu/rest/v2/all");
+    setCountries(response.data);
+    setLoading(false);
+    console.log('data', response.data)
   };
 
-  async componentDidMount() {
-    this.setState({ loading: true });
-    const response = await axios.get("https://restcountries.eu/rest/v2/all");
-    this.setState({ countries: response.data, loading: false });
-  }
+  useEffect(() => {
+    allCountries();
+  },[])
 
-  searchCountries = async (name) => {
-    this.setState({ loading: true });
+  const searchCountries = async (name) => {
+    setLoading(true);
     const response = await axios.get(
       `https://restcountries.eu/rest/v2/name/${name}`
     );
-    this.setState({ countries: response.data, loading: false });
+    setCountries(response.data);
+    setLoading(false);
   };
 
-  getCountry = async (country) => {
-    this.setState({ loading: true });
+  const getCountry = async (country) => {
+    setLoading(true);
     const response = await axios.get(
       `https://restcountries.eu/rest/v2/name/${country}`
     );
-    this.setState({ country: response.data[0], loading: false });
+    setCountry(response.data[0]);
+    setLoading(false);
   };
 
-  getCountryCurrencies = async (country) => {
-    this.setState({ loading: true });
+  const getCountryCurrencies = async (country) => {
+    setLoading(true);
     const response = await axios.get(
       `https://restcountries.eu/rest/v2/name/${country}`
     );
-    this.setState({ countryCurrencies: response.data[0].currencies[0], loading: false });
+    setCountryCurrencies(response.data[0].currencies[0]);
+    setLoading(false);
   };
 
-  getCountryLanguages = async (country) => {
-    this.setState({ loading: true });
+  const getCountryLanguages = async (country) => {
+    setLoading(true);
     const response = await axios.get(
       `https://restcountries.eu/rest/v2/name/${country}`
     );
-    this.setState({ countryLanguages: response.data[0].languages[0], loading: false });
+    setCountryLanguages(response.data[0].languages[0]);
+    setLoading(false);
   };
 
-  getCountryBorders = async (country) => {
-    this.setState({ loading: true });
+  const getCountryBorders = async (country) => {
+    setLoading(true);
     const response = await axios.get(
       `https://restcountries.eu/rest/v2/name/${country}`
     );
-    this.setState({ countryBorders: response.data[0].borders, loading: false });
-    console.log(response.data[0].borders);
+    setCountryBorders(response.data[0].borders);
+    setLoading(false);
   };
 
-  setAlert = (message, type) => {
-    this.setState({ alert: { message: message, type: type } });
+  const showAlert = (message, type) => {
+    setAlert({ message: message, type: type });
 
     setTimeout(() => {
-      this.setState({ alert: null });
+      setAlert(null);
     }, 3000);
   };
 
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="App">
-          <Alert alert={this.state.alert} />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Fragment>
-                  <Search
-                    searchCountries={this.searchCountries}
-                    setAlert={this.setAlert}
-                  />
-                  <Countries
-                    loading={this.state.loading}
-                    countries={this.state.countries}
-                  />
-                </Fragment>
-              )}
-            ></Route>
-            <Route
-              exact
-              path="/:country"
-              render={(props) => (
-                <Country
-                  {...props}
-                  getCountry={this.getCountry}
-                  getCountryCurrencies={this.getCountryCurrencies}
-                  getCountryLanguages={this.getCountryLanguages}
-                  getCountryBorders={this.getCountryBorders}
-                  country={this.state.country}
-                  countryCurrencies={this.state.countryCurrencies}
-                  countryLanguages={this.state.countryLanguages}
-                  countryBorders={this.state.countryBorders}
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Alert alert={alert} />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Fragment>
+                <Search
+                  searchCountries={searchCountries}
+                  showAlert={showAlert}
                 />
-              )}
-            ></Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+                <Countries
+                  loading={loading}
+                  countries={countries}
+                />
+              </Fragment>
+            )}
+          ></Route>
+          <Route
+            exact
+            path="/:country"
+            render={(props) => (
+              <Country
+                {...props}
+                getCountry={getCountry}
+                getCountryCurrencies={getCountryCurrencies}
+                getCountryLanguages={getCountryLanguages}
+                getCountryBorders={getCountryBorders}
+                country={country}
+                countryCurrencies={countryCurrencies}
+                countryLanguages={countryLanguages}
+                countryBorders={countryBorders}
+              />
+            )}
+          ></Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default App;
