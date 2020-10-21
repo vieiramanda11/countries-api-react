@@ -6,6 +6,7 @@ import axios from "axios";
 import Search from "./countries/Search";
 import Alert from "./layout/Alert";
 import Country from "./countries/Country";
+import Filter from "./countries/Filter";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -20,12 +21,11 @@ const App = () => {
     const response = await axios.get("https://restcountries.eu/rest/v2/all");
     setCountries(response.data);
     setLoading(false);
-    console.log('data', response.data)
   };
 
   useEffect(() => {
     allCountries();
-  },[])
+  }, []);
 
   const searchCountries = async (name) => {
     setLoading(true);
@@ -36,39 +36,49 @@ const App = () => {
     setLoading(false);
   };
 
+  const searchRegion = async (region) => {
+    setLoading(true);
+    const response = await axios.get(
+      `https://restcountries.eu/rest/v2/region/${region}`
+    );
+    setCountries(response.data);
+    console.log(response.data)
+    setLoading(false);
+  };
+
   const getCountry = async (country) => {
     setLoading(true);
     const response = await axios.get(
-      `https://restcountries.eu/rest/v2/name/${country}`
+      `https://restcountries.eu/rest/v2/alpha/${country}`
     );
-    setCountry(response.data[0]);
+    setCountry(response.data);
     setLoading(false);
   };
 
   const getCountryCurrencies = async (country) => {
     setLoading(true);
     const response = await axios.get(
-      `https://restcountries.eu/rest/v2/name/${country}`
+      `https://restcountries.eu/rest/v2/alpha/${country}`
     );
-    setCountryCurrencies(response.data[0].currencies[0]);
+    setCountryCurrencies(response.data.currencies[0]);
     setLoading(false);
   };
 
   const getCountryLanguages = async (country) => {
     setLoading(true);
     const response = await axios.get(
-      `https://restcountries.eu/rest/v2/name/${country}`
+      `https://restcountries.eu/rest/v2/alpha/${country}`
     );
-    setCountryLanguages(response.data[0].languages[0]);
+    setCountryLanguages(response.data.languages[0]);
     setLoading(false);
   };
 
   const getCountryBorders = async (country) => {
     setLoading(true);
     const response = await axios.get(
-      `https://restcountries.eu/rest/v2/name/${country}`
+      `https://restcountries.eu/rest/v2/alpha/${country}`
     );
-    setCountryBorders(response.data[0].borders);
+    setCountryBorders(response.data.borders);
     setLoading(false);
   };
 
@@ -88,16 +98,15 @@ const App = () => {
           <Route
             exact
             path="/"
+            key={country}
             render={() => (
               <Fragment>
                 <Search
                   searchCountries={searchCountries}
                   showAlert={showAlert}
                 />
-                <Countries
-                  loading={loading}
-                  countries={countries}
-                />
+                <Filter searchRegion={searchRegion} countries={countries} />
+                <Countries loading={loading} countries={countries} />
               </Fragment>
             )}
           ></Route>
@@ -115,6 +124,7 @@ const App = () => {
                 countryCurrencies={countryCurrencies}
                 countryLanguages={countryLanguages}
                 countryBorders={countryBorders}
+                loading={loading}
               />
             )}
           ></Route>

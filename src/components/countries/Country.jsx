@@ -1,28 +1,52 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
+import Spinner from "../layout/Spinner";
 
-const Country  = ({ country, getCountry, getCountryCurrencies, getCountryLanguages, getCountryBorders, match, countryCurrencies, countryLanguages, countryBorders }) => {
-
+const Country = ({
+  country,
+  getCountry,
+  getCountryCurrencies,
+  getCountryLanguages,
+  getCountryBorders,
+  match,
+  countryCurrencies,
+  countryLanguages,
+  countryBorders,
+  loading,
+}) => {
   useEffect(() => {
     getCountry(match.params.country);
-    getCountryCurrencies(match.params.country)
-    getCountryLanguages(match.params.country)
-    getCountryBorders(match.params.country)
+    getCountryCurrencies(match.params.country);
+    getCountryLanguages(match.params.country);
+    getCountryBorders(match.params.country);
     // eslint-disable-next-line
-  },[]);
+  }, []);
 
-    const { name, nativeName, flag, population, region, capital, subregion, topLevelDomain } = country;
-    const currency = countryCurrencies.name;
-    const languages = countryLanguages.name;
+  const {
+    name,
+    nativeName,
+    flag,
+    population,
+    region,
+    capital,
+    subregion,
+    topLevelDomain,
+  } = country;
+  const currency = countryCurrencies.name;
+  const languages = countryLanguages.name;
 
+  if (loading) {
+    return <Spinner />;
+  } else {
     return (
-      <div>
+      <div key={name}>
         <img
-        src={flag}
-        style={{ width: "100px", height: "50px" }}
-        alt="country flag"
-      />
+          src={flag}
+          style={{ width: "100px", height: "50px" }}
+          alt="country flag"
+        />
         <h5>Name: {name}</h5>
         <h5>Native name: {nativeName}</h5>
         <h5>Population: {population}</h5>
@@ -33,16 +57,23 @@ const Country  = ({ country, getCountry, getCountryCurrencies, getCountryLanguag
         <h5>Currencies: {currency}</h5>
         <h5>Language: {languages}</h5>
         <div>
-        {countryBorders.map((border) => (
-          <Link to={`/${name}`} key={border} countryBorders={countryBorders}><h5>{border}</h5></Link>
-        ))}
-      </div>
+          {countryBorders.map((border) => (
+            <Link
+              to={`/${border}`}
+              key={border}
+              countryborders={countryBorders}
+            >
+              <h5>{border}</h5>
+            </Link>
+          ))}
+        </div>
       </div>
     );
   }
+};
 
 Country.propTypes = {
   getCountry: PropTypes.func.isRequired,
 };
 
-export default Country;
+export default withRouter(Country);

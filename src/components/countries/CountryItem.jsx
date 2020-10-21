@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { Link } from 'react-router-dom'
 
 const CountryItem = ({
-  country: { name, population, region, capital, flag },
+  country: { name, population, region, capital, flag, alpha3Code },
 }) => {
   return (
-    <Link to={`/${name}`}>
+    <Link to={`/${alpha3Code}`}>
     <div>
       <img
         src={flag}
