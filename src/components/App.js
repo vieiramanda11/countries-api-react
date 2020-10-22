@@ -93,9 +93,6 @@ const App = () => {
               <Country
                 {...props}
                 getCountry={getCountry}
-                getCountryCurrencies={getCountry}
-                getCountryLanguages={getCountry}
-                getCountryBorders={getCountry}
                 country={country}
                 countryCurrencies={countryCurrencies}
                 countryLanguages={countryLanguages}
