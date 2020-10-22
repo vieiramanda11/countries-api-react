@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Countries from "../components/countries/Countries";
@@ -52,33 +52,9 @@ const App = () => {
       `https://restcountries.eu/rest/v2/alpha/${country}`
     );
     setCountry(response.data);
-    setLoading(false);
-  };
-
-  const getCountryCurrencies = async (country) => {
-    setLoading(true);
-    const response = await axios.get(
-      `https://restcountries.eu/rest/v2/alpha/${country}`
-    );
     setCountryCurrencies(response.data.currencies[0]);
-    setLoading(false);
-  };
-
-  const getCountryLanguages = async (country) => {
-    setLoading(true);
-    const response = await axios.get(
-      `https://restcountries.eu/rest/v2/alpha/${country}`
-    );
-    setCountryLanguages(response.data.languages[0]);
-    setLoading(false);
-  };
-
-  const getCountryBorders = async (country) => {
-    setLoading(true);
-    const response = await axios.get(
-      `https://restcountries.eu/rest/v2/alpha/${country}`
-    );
     setCountryBorders(response.data.borders);
+    setCountryLanguages(response.data.languages[0]);
     setLoading(false);
   };
 
@@ -117,9 +93,9 @@ const App = () => {
               <Country
                 {...props}
                 getCountry={getCountry}
-                getCountryCurrencies={getCountryCurrencies}
-                getCountryLanguages={getCountryLanguages}
-                getCountryBorders={getCountryBorders}
+                getCountryCurrencies={getCountry}
+                getCountryLanguages={getCountry}
+                getCountryBorders={getCountry}
                 country={country}
                 countryCurrencies={countryCurrencies}
                 countryLanguages={countryLanguages}

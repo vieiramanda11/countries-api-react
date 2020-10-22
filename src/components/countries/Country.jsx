@@ -7,9 +7,6 @@ import Spinner from "../layout/Spinner";
 const Country = ({
   country,
   getCountry,
-  getCountryCurrencies,
-  getCountryLanguages,
-  getCountryBorders,
   match,
   countryCurrencies,
   countryLanguages,
@@ -18,9 +15,6 @@ const Country = ({
 }) => {
   useEffect(() => {
     getCountry(match.params.country);
-    getCountryCurrencies(match.params.country);
-    getCountryLanguages(match.params.country);
-    getCountryBorders(match.params.country);
     // eslint-disable-next-line
   }, []);
 
