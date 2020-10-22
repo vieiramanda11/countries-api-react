@@ -100,14 +100,14 @@ const App = () => {
             path="/"
             key={country}
             render={() => (
-              <Fragment>
+              <div>
                 <Search
                   searchCountries={searchCountries}
                   showAlert={showAlert}
                 />
                 <Filter searchRegion={searchRegion} countries={countries} />
                 <Countries loading={loading} countries={countries} />
-              </Fragment>
+              </div>
             )}
           ></Route>
           <Route

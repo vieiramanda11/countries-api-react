@@ -10,7 +10,7 @@ const Filter = ({ searchRegion }) => {
   return (
     <div>
       <select className="filter-select" value={region} onChange={handleChange}>
-        <option value="">Search by Region</option>
+        <option value="" disabled selected hidden>Search by Region</option>
         <option value="europe">Europe</option>
         <option value="asia">Asia</option>
         <option value="africa">Africa</option>
