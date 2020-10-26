@@ -42,7 +42,7 @@ const App = () => {
       `https://restcountries.eu/rest/v2/region/${region}`
     );
     setCountries(response.data);
-    console.log(response.data)
+    console.log(response.data);
     setLoading(false);
   };
 
@@ -87,11 +87,11 @@ const App = () => {
             )}
           ></Route>
           <Route
-            exact
             path="/:country"
             render={(props) => (
               <Country
                 {...props}
+                key={props.match.params.country} 
                 getCountry={getCountry}
                 country={country}
                 countryCurrencies={countryCurrencies}
