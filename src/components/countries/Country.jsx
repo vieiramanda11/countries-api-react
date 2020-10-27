@@ -35,7 +35,8 @@ const Country = ({
     return <Spinner />;
   } else {
     return (
-      <div key={name}>
+      <div>
+        <Link to="/">Back</Link>
         <img
           src={flag}
           style={{ width: "100px", height: "50px" }}

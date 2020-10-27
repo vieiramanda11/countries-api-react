@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const Search = ({ searchCountries, setAlert }) => {
+const Search = ({ searchCountries, showAlert }) => {
   const [text, setText] = useState('');
    
   const onChange = (event) => {
@@ -11,7 +11,7 @@ const Search = ({ searchCountries, setAlert }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (text === "") {
-        setAlert('Please enter the country name', 'light');
+        showAlert('Please enter the country name', 'light');
     } else {
       searchCountries(text);
       setText('')
