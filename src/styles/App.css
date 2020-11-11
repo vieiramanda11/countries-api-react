@@ -6,4 +6,5 @@ body {
 
 .body-app {
     background-color: hsl(0, 0%, 98%);
+    padding: 15px 50px;
 }

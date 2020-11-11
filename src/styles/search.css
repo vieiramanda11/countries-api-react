@@ -1,0 +1,28 @@
+.form-search {
+    
+    
+}
+
+.input-search {
+    box-shadow: 0 0 10px 5px rgb(182, 181, 181);
+    border: 1px solid white;
+    width: 400px;
+    border-radius: 3px;
+    height: 50px;
+}
+
+.input-search::placeholder {
+    padding-left: 50px;
+
+}
+
+.search-button {
+    background: white;
+    border: none;
+    position: relative;
+    right: 390px;
+}
+
+.fa-search {
+    color: hsl(0, 0%, 52%);
+}

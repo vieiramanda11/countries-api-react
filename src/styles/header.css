@@ -1,8 +1,6 @@
 .header {
     background-color: hsl(0, 0%, 100%);
-    
     padding: 15px 50px 1px 50px;
-
     font-weight: 800;
     box-shadow: 0 6px 4px -4px rgb(182, 181, 181);
 }
