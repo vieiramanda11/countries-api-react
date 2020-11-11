@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 body {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+  background-color: hsl(0, 0%, 98%) !important;
 }
 
 .body-app {
-    background-color: hsl(0, 0%, 98%);
-    padding: 15px 50px;
+  padding: 15px 50px;
 }

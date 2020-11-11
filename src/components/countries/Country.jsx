@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Spinner from "../layout/Spinner";
+import "../../styles/country.css";
 
 const Country = ({
   country,
@@ -35,32 +36,61 @@ const Country = ({
     return <Spinner />;
   } else {
     return (
-      <div>
-        <Link to="/">Back</Link>
-        <img
-          src={flag}
-          style={{ width: "100px", height: "50px" }}
-          alt="country flag"
-        />
-        <h5>Name: {name}</h5>
-        <h5>Native name: {nativeName}</h5>
-        <h5>Population: {population}</h5>
-        <h5>Region: {region}</h5>
-        <h5>Capital: {capital}</h5>
-        <h5>SubRegion: {subregion}</h5>
-        <h5>Topleveldomain: {topLevelDomain}</h5>
-        <h5>Currencies: {currency}</h5>
-        <h5>Language: {languages}</h5>
-        <div>
-          {countryBorders.map((border) => (
-            <Link
-              to={`/${border}`}
-              key={border}
-              countryborders={countryBorders}
-            >
-              <h5>{border}</h5>
-            </Link>
-          ))}
+      <div className="single-country">
+        <div className="container-back">
+          <Link to="/">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back</span>
+          </Link>
+        </div>
+        <div className="content-container">
+          <img src={flag} alt="country flag" />
+          <div className="container-second">
+            <h2>{name}</h2>
+            <div className="container-description">
+              <div className="first-col">
+                <p>
+                  Native name: <span>{nativeName}</span>
+                </p>
+                <p>
+                  Population: <span>{population}</span>
+                </p>
+                <p>
+                  Region: <span>{region}</span>
+                </p>
+                <p>
+                  Capital: <span>{capital}</span>
+                </p>
+              </div>
+              <div className="second-col">
+                <p>
+                  SubRegion: <span>{subregion}</span>
+                </p>
+                <p>
+                  Topleveldomain: <span>{topLevelDomain}</span>
+                </p>
+                <p>
+                  Currencies: <span>{currency}</span>
+                </p>
+                <p>
+                  Language: <span>{languages}</span>
+                </p>
+              </div>
+            </div>
+            <div className="country-borders">
+              <p>Border countries:</p>
+              {countryBorders.map((border) => (
+                <Link
+                  to={`/${border}`}
+                  key={border}
+                  countryborders={countryBorders}
+                  className="country-border"
+                >
+                  <p>{border.toLowerCase()}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );

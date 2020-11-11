@@ -81,13 +81,15 @@ const App = () => {
               render={() => (
                 <div>
                   <div className="search-filter-container">
-                  <Search
-                    searchCountries={searchCountries}
-                    showAlert={showAlert}
-                  />
-                  <Filter searchRegion={searchRegion} countries={countries} />
+                    <Search
+                      searchCountries={searchCountries}
+                      showAlert={showAlert}
+                    />
+                    <Filter searchRegion={searchRegion} countries={countries} />
                   </div>
-                  <Countries loading={loading} countries={countries} />
+                  <div>
+                    <Countries loading={loading} countries={countries} />
+                  </div>
                 </div>
               )}
             ></Route>

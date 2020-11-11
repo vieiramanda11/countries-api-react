@@ -8,7 +8,7 @@ const Countries = ({ countries, loading }) => {
     return <Spinner />;
   } else {
     return (
-      <div>
+      <div className="card-deck">
         {countries.map((country) => (
           <CountryItem key={country.alpha3Code} country={country} />
         ))}
@@ -20,6 +20,6 @@ const Countries = ({ countries, loading }) => {
 Countries.propTypes = {
   countries: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-}
+};
 
 export default Countries;

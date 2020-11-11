@@ -1,0 +1,32 @@
+.card-deck a {
+  text-decoration: none;
+  color: black;
+}
+
+.card-deck a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.card {
+  width: 17rem;
+  margin-bottom: 30px !important;
+}
+
+.card img {
+  width: 100%;
+  height: 25vh;
+}
+
+.card-details {
+  color: hsl(0, 0%, 52%);
+}
+
+.content-card {
+  padding: 5px 15px;
+}
+
+.content-card h5 {
+  padding: 20px 0;
+  font-weight: 600;
+}

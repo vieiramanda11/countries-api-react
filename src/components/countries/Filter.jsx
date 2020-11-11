@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import '../../styles/filter.css'
+import "../../styles/filter.css";
 
 const Filter = ({ searchRegion }) => {
-    const [region, setRegion] = useState('');
+  const [region, setRegion] = useState("");
 
-    const handleChange = (event) => {
-        setRegion(event.target.value.toLowerCase())
-        searchRegion(event.target.value.toLowerCase())
-    }
+  const handleChange = (event) => {
+    setRegion(event.target.value.toLowerCase());
+    searchRegion(event.target.value.toLowerCase());
+  };
   return (
     <div>
       <select className="filter-select" value={region} onChange={handleChange}>
-        <option value="" disabled selected hidden>Filter by Region</option>
+        <option value="" disabled selected hidden>
+          Filter by Region
+        </option>
         <option value="europe">Europe</option>
         <option value="asia">Asia</option>
         <option value="africa">Africa</option>
