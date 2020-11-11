@@ -1,6 +1,6 @@
 <h1 align="center">React - Countries Search Api</h1>
 
-> This project consists in build the front-end of an application that allow users to see a list of all countries and the ability to filter by region and search by country name. In each country details the user can navigate between border countries. This apps consuming this [API](https://restcountries.eu/).
+> This project consists in build the front-end of an application that allow users to see a list of all countries and the ability to filter by region and search by country name. In each country details the user can navigate between border countries. This app consuming this [API](https://restcountries.eu/).
 
 ### ✨ [Demo](https://countries-api-react.herokuapp.com/)
 
