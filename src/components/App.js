@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import "./App.css";
+import "../styles/App.css";
 import Countries from "../components/countries/Countries";
 import axios from "axios";
 import Search from "./countries/Search";
 import Alert from "./layout/Alert";
 import Country from "./countries/Country";
 import Filter from "./countries/Filter";
+import Header from "./layout/Header";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -67,43 +68,46 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Alert alert={alert} />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            key={country}
-            render={() => (
-              <div>
-                <Search
-                  searchCountries={searchCountries}
-                  showAlert={showAlert}
+    <div className="App">
+      <Header />
+      <div className="body-app">
+        <BrowserRouter>
+          <Alert alert={alert} />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              key={country}
+              render={() => (
+                <div>
+                  <Search
+                    searchCountries={searchCountries}
+                    showAlert={showAlert}
+                  />
+                  <Filter searchRegion={searchRegion} countries={countries} />
+                  <Countries loading={loading} countries={countries} />
+                </div>
+              )}
+            ></Route>
+            <Route
+              path="/:country"
+              render={(props) => (
+                <Country
+                  {...props}
+                  key={props.match.params.country}
+                  getCountry={getCountry}
+                  country={country}
+                  countryCurrencies={countryCurrencies}
+                  countryLanguages={countryLanguages}
+                  countryBorders={countryBorders}
+                  loading={loading}
                 />
-                <Filter searchRegion={searchRegion} countries={countries} />
-                <Countries loading={loading} countries={countries} />
-              </div>
-            )}
-          ></Route>
-          <Route
-            path="/:country"
-            render={(props) => (
-              <Country
-                {...props}
-                key={props.match.params.country} 
-                getCountry={getCountry}
-                country={country}
-                countryCurrencies={countryCurrencies}
-                countryLanguages={countryLanguages}
-                countryBorders={countryBorders}
-                loading={loading}
-              />
-            )}
-          ></Route>
-        </Switch>
+              )}
+            ></Route>
+          </Switch>
+        </BrowserRouter>
       </div>
-    </BrowserRouter>
+    </div>
   );
 };
 
