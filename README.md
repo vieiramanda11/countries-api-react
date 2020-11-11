@@ -2,7 +2,7 @@
 
 > This project consists in build the front-end of an application that allow users to see a list of all countries and the ability to filter by region and search by country name. In each country details the user can navigate between border countries. This apps consuming this [API](https://restcountries.eu/).
 
-### ✨ [Demo](https://react-app-bookstore.herokuapp.com/)
+### ✨ [Demo](https://countries-api-react.herokuapp.com/)
 
 ## Preview
 
